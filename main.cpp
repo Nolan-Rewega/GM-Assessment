@@ -16,6 +16,12 @@ int main(){
     };
 
     
+    // -- unit tests getUriStandardDeviations()
+    std::vector<double> sd = r->getUriStandardDeviations();
+    for(unsigned int i = 0; i < means.size(); i++){
+        std::cout << "Standard Deviation " << i+1 << ": " << sd[i] << std::endl;
+    };
+    
     // -- Debug print().
     r->printUriData();
 

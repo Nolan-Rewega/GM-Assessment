@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <cmath>
 #include <chrono>
 #include <string>
 #include <vector>
@@ -23,6 +24,7 @@ private:
         std::vector<double> requests;
         int numberOfRequests;
         double mean;
+        double standardDeviation;
     };
     /** chrono start and end time_points */
     std::chrono::high_resolution_clock::time_point m_requestStart;
@@ -40,6 +42,13 @@ private:
      * @params [in] uri The URI of the request endpoint.
      */
     void calculateUriMean(const std::string& uri);
+
+    /**
+     * Calculates the standard deviation of all request on the given URI
+     *
+     * @params [in] uri The URI of the request endpoint.
+     */
+    void calculateUriStandardDeviation(const std::string& uri);
 
 protected:
     /**
@@ -65,6 +74,15 @@ public:
      */
     std::vector<double> getUriMeans();
 
+    /**
+     * Retrieves all mean response times from each seperate URI
+     * stored inside an array.
+     *
+     * @params None
+     * @returns a vector<double> containing URI mean values
+     */
+    std::vector<double> getUriStandardDeviations();
+    
     /** Prints m_uriRequestData to console. */
     void printUriData();
 
