@@ -3,7 +3,7 @@ CC = gcc
 CPPFLAGS = -g -Wall -Wextra
 LDFLAGS  = -g -lstdc++ -lm
 
-.PHONEY: all clean
+.PHONEY: all clean squeaky
 
 
 main: main.o StatisticalRequest.o Request.o 
@@ -23,3 +23,6 @@ all: main
 
 clean: 
 	-rm -f *.o
+
+squeaky: clean
+	-rm -f main
