@@ -31,7 +31,7 @@ protected:
     /** Finished processing the request in the child class */
     virtual void finish();
 
-private:
+public:
     /**
     * Process the request
     *
