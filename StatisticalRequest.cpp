@@ -1,8 +1,9 @@
 #include "StatisticalRequest.hpp"
 
 
-StatisticalRequest::StatisticalRequest()
+StatisticalRequest::StatisticalRequest(int binQuantity)
 {
+    m_histogramBinQuantity = binQuantity;
     m_currentRequestUri = "";
 }
 
@@ -27,28 +28,39 @@ std::vector<double> StatisticalRequest::getUriStandardDeviations()
 }
 
 
+std::vector<std::vector<double>> StatisticalRequest::getUriNormalizedHistograms()
+{
+    std::vector<std::vector<double>> histograms;
+    for(auto it = m_uriRequestData.cbegin(); it != m_uriRequestData.end(); it++){
+        histograms.push_back(it->second.histogram->getNormalizedHistogram());
+    }
+    return histograms;
+}
+
+
 void StatisticalRequest::start(const std::string& uri)
 {
     m_currentRequestUri = uri;
 
-    // -- add Uri into request map if its not already in the map
+    // -- Add Uri into request map if its not already in the map
     const auto it = m_uriRequestData.find(uri);
     if(it == m_uriRequestData.end()) {
         UriData data;
         data.numberOfRequests = 0.0;
         data.mean = 0.0;
         data.standardDeviation = 0.0;
+        data.histogram = new Histogram(m_histogramBinQuantity);
         m_uriRequestData.insert( {uri, data} );
     }
     
-    // -- start timing request here
+    // -- Start timing here
     m_requestStart = std::chrono::high_resolution_clock::now();
 }
 
 
 void StatisticalRequest::finish()
 {
-    // -- stop timing here.
+    // -- Stop timing here.
     m_requestEnd = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> timeMs = (m_requestEnd - m_requestStart);
 
@@ -102,13 +114,4 @@ void StatisticalRequest::printUriData(){
     }
 
 }
-
-
-
-
-
-
-
-
-
 

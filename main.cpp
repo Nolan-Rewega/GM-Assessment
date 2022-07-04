@@ -1,13 +1,12 @@
 #include "StatisticalRequest.hpp"
 
 int main(){
-    StatisticalRequest* r = new StatisticalRequest();
+    StatisticalRequest* r = new StatisticalRequest(10);
     
     // -- running unit tests in main.   
-    r->process("uri1");
-    r->process("uri1");
-    r->process("uri1");
-    r->process("uri1");
+    for(int i = 0; i < 100; i++){
+        r->process("uri1");
+    }
     
     // -- unit tests getUriMeans()
     std::vector<double> means = r->getUriMeans();
@@ -22,6 +21,7 @@ int main(){
         std::cout << "Standard Deviation " << i+1 << ": " << sd[i] << std::endl;
     };
     
+
     // -- Debug print().
     r->printUriData();
 
