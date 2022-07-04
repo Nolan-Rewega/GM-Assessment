@@ -70,6 +70,7 @@ void StatisticalRequest::finish()
         it->second.numberOfRequests += 1;
         calculateUriMean(m_currentRequestUri);
         calculateUriStandardDeviation(m_currentRequestUri);
+        it->second.histogram->updateHistogram(it->second.requests);
     }
     
     m_currentRequestUri = "";

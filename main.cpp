@@ -1,10 +1,10 @@
 #include "StatisticalRequest.hpp"
 
 int main(){
-    StatisticalRequest* r = new StatisticalRequest(10);
+    StatisticalRequest* r = new StatisticalRequest(20);
     
     // -- running unit tests in main.   
-    for(int i = 0; i < 100; i++){
+    for(int i = 0; i < 10; i++){
         r->process("uri1");
     }
     
@@ -20,10 +20,20 @@ int main(){
     for(unsigned int i = 0; i < means.size(); i++){
         std::cout << "Standard Deviation " << i+1 << ": " << sd[i] << std::endl;
     };
-    
+   
+
+    // -- unit tests getUriNormalizedhistogram()
+    std::vector<std::vector<double>> histograms = r->getUriNormalizedHistograms();
+    for(std::vector<double> h : histograms){
+        std::cout << "NormalizedHistogram: ";
+        for(unsigned int i = 0; i < h.size(); i++){
+            std::cout << h[i] << " ";
+        };
+        std::cout << std::endl;
+    };
 
     // -- Debug print().
-    r->printUriData();
+    //r->printUriData();
 
 
 
